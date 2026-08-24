@@ -1,1 +1,206 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Casino Demo</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+    }
 
+    header {
+      padding: 20px;
+      text-align: center;
+      background: #1d1d1d;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 30px;
+    }
+
+    .balance {
+      margin-top: 10px;
+      color: #ffd700;
+      font-weight: bold;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .games {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+    }
+
+    .game {
+      background: #222;
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+    }
+
+    button {
+      background: #ffd700;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:active {
+      transform: scale(0.97);
+    }
+
+    .message {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🎰 CASINO DEMO</h1>
+  <div class="balance">
+    Bilanci virtual: €<span id="balance">1000</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <h2>🎮 Lojërat</h2>
+
+  <div class="games">
+
+    <div class="game">
+      <h3>🎰 Slot</h3>
+      <p>Bast: €10</p>
+      <button onclick="playSlot()">Luaj</button>
+    </div>
+
+    <div class="game">
+      <h3>🎡 Roulette</h3>
+      <p>Bast: €10</p>
+      <button onclick="playRoulette()">Luaj</button>
+    </div>
+
+    <div class="game">
+      <h3>🎲 Dice</h3>
+      <p>Bast: €10</p>
+      <button onclick="playDice()">Luaj</button>
+    </div>
+
+  </div>
+
+  <h2>⚽ Basëte Demo</h2>
+
+  <div class="game">
+    <p>Real Madrid — Barcelona</p>
+    <p>Odds: 2.00</p>
+    <button onclick="placeBet()">Bëj bast €10</button>
+  </div>
+
+  <div class="message" id="message">
+    Mirë se erdhe në demo!
+  </div>
+
+</div>
+
+<script>
+  let balance = 1000;
+
+  function updateBalance() {
+    document.getElementById("balance").textContent = balance.toFixed(2);
+  }
+
+  function playSlot() {
+    if (balance < 10) return alert("Nuk ke mjaftueshëm kredi virtuale.");
+
+    balance -= 10;
+
+    const win = Math.random() < 0.35;
+
+    if (win) {
+      balance += 30;
+      document.getElementById("message").textContent =
+        "🎉 Fitove €30 virtuale!";
+    } else {
+      document.getElementById("message").textContent =
+        "😔 Humbje virtuale. Provo përsëri!";
+    }
+
+    updateBalance();
+  }
+
+  function playRoulette() {
+    if (balance < 10) return alert("Nuk ke mjaftueshëm kredi virtuale.");
+
+    balance -= 10;
+
+    const win = Math.random() < 0.48;
+
+    if (win) {
+      balance += 20;
+      document.getElementById("message").textContent =
+        "🎉 Roulette: fitove €20 virtuale!";
+    } else {
+      document.getElementById("message").textContent =
+        "❌ Roulette: humbe €10 virtuale.";
+    }
+
+    updateBalance();
+  }
+
+  function playDice() {
+    if (balance < 10) return alert("Nuk ke mjaftueshëm kredi virtuale.");
+
+    balance -= 10;
+
+    const roll = Math.floor(Math.random() * 6) + 1;
+
+    if (roll >= 4) {
+      balance += 25;
+      document.getElementById("message").textContent =
+        "🎲 Zare: dole " + roll + " dhe fitove €25 virtuale!";
+    } else {
+      document.getElementById("message").textContent =
+        "🎲 Zare: dole " + roll + " dhe humbe €10 virtuale.";
+    }
+
+    updateBalance();
+  }
+
+  function placeBet() {
+    if (balance < 10) return alert("Nuk ke mjaftueshëm kredi virtuale.");
+
+    balance -= 10;
+
+    const win = Math.random() < 0.5;
+
+    if (win) {
+      balance += 20;
+      document.getElementById("message").textContent =
+        "⚽ Basti demo fitoi! +€20 virtuale.";
+    } else {
+      document.getElementById("message").textContent =
+        "⚽ Basti demo humbi.";
+    }
+
+    updateBalance();
+  }
+</script>
+
+</body>
+</html>
